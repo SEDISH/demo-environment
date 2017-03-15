@@ -1,2 +1,2 @@
 # ohie-composition
-Docker image which is using docker-compose to create demo.
+Docker Compose configuration that will be used on the demo server.
