@@ -1,0 +1,12 @@
+version: "2"
+services:
+  base:
+    container_name: ohie-base_demo
+    image: uwitech/ohie-base
+  mongodb:
+    container_name: mongodb_demo
+    image: uwitech/mongodb
+    volumes:
+      - data-volume:/data/db
+volumes:
+  data-volume:
