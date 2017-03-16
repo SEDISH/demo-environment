@@ -1,8 +1,5 @@
 version: "2"
 services:
-  base:
-    container_name: ohie-base_demo
-    image: uwitech/ohie-base
   mongodb:
     container_name: mongodb_demo
     image: uwitech/mongodb
