@@ -1,5 +1,7 @@
 #!/bin/sh
 
+COMPOSE='/usr/local/bin/docker-compose'
+
 # Restarts the demo by recreating the docker containers
 
 # Update the compose file
@@ -8,5 +10,5 @@ git pull
 
 
 # Restart with new images
-docker-compose down
-docker-compose up --build -d
+$COMPOSE down
+$COMPOSE up --build -d
