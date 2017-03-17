@@ -5,5 +5,11 @@ services:
     image: uwitech/mongodb
     volumes:
       - mongodb-data:/data/db
+  ohie-il:
+    container_name: ohie-il_demo
+    image: uwitech/ohie-il
+    ports:
+      - "8080:8080"
+
 volumes:
   mongodb-data:
