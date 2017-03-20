@@ -10,11 +10,13 @@ services:
       - mongodb
     container_name: ohie-il_demo
     image: uwitech/ohie-il
+    ports:
+      - "8080:8080"
   ohie-il-console:
     container_name: ohie-il-console_demo
     image: uwitech/ohie-il-console
     ports:
-      - "8080:80"
+      - "80:80"
 
 volumes:
   mongodb-data:
