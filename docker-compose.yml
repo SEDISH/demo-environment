@@ -8,6 +8,7 @@ services:
   ohie-il:
     depends_on:
       - mongodb
+    env_file: .env
     container_name: ohie-il_demo
     image: uwitech/ohie-il
     ports:
