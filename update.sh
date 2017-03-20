@@ -10,5 +10,6 @@ git pull
 
 
 # Restart with new images
+$COMPOSE pull
 $COMPOSE down
 $COMPOSE up --build -d
