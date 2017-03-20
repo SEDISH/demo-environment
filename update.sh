@@ -8,7 +8,7 @@ COMPOSE='/usr/local/bin/docker-compose'
 git reset --hard origin/master
 git pull
 
-cp config/.env .env
+cp conf/.env .env
 
 # Restart with new images
 $COMPOSE pull
