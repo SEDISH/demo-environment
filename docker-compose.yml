@@ -19,6 +19,10 @@ services:
     image: uwitech/ohie-il-console
     ports:
       - "80:80"
+  ohie-irl:
+    container_name: ohie-ilr-demo
+    env_file: .env
+    image: uwitech/ohie-ilr
 
 volumes:
   mongodb-data:
