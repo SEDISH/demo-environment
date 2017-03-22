@@ -13,9 +13,6 @@ services:
     image: uwitech/ohie-il
     ports:
       - "8080:8080"
-    volumes:
-      - ./openhim:/var/openhim
-    command: openhim-core --conf=/var/openhim/core.json --cluster=auto
   ohie-il-console:
     container_name: ohie-il-console_demo
     env_file: .env
