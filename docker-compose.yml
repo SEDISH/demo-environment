@@ -5,6 +5,12 @@ services:
     image: uwitech/mongodb
     volumes:
       - mongodb-data:/data/db
+  dhis-db:
+    container_name: fr-db_demo
+    image: uwitech/postgresql
+    env_file: .env
+    volumes:
+      - fr-pgdata:/var/lib/postgres/data
   ohie-il:
     depends_on:
       - mongodb
@@ -25,6 +31,13 @@ services:
     image: uwitech/ohie-ilr
     ports:
       - "8984:8984"
+  ohie-fr:
+    container_name: ohie-fr-demo
+    env_file: .env
+    image: uwitech/ohie-fr
+    ports:
+      - "9000:8080"
 
 volumes:
   mongodb-data:
+  fr-pgdata:
