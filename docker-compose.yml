@@ -19,18 +19,17 @@ services:
     image: uwitech/ohie-il
     ports:
       - "8080:8080"
+      - "5000:5000"
   ohie-il-console:
     container_name: ohie-il-console_demo
     env_file: .env
     image: uwitech/ohie-il-console
     ports:
       - "80:80"
-  ohie-irl:
+  ohie-ilr:
     container_name: ohie-ilr-demo
     env_file: .env
     image: uwitech/ohie-ilr
-    ports:
-      - "8984:8984"
   ohie-fr:
     container_name: ohie-fr-demo
     env_file: .env
