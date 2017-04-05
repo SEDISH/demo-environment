@@ -11,6 +11,18 @@ services:
     env_file: .env
     volumes:
       - fr-pgdata:/var/lib/postgres/data
+  openempi-db:
+    container_name: openempi-db_demo
+    image: uwitech/postgresql
+    volumes:
+      - cr-pgdata:/var/lib/postgres/data
+    environment:
+      - POSTGRES_USER=openempi
+      - POSTGRES_DB=openempi
+      - POSTGRES_PASSWORD=openempi
+    ports:
+      - 5432:5432
+
   ohie-il:
     depends_on:
       - mongodb
@@ -36,7 +48,16 @@ services:
     image: uwitech/ohie-fr
     ports:
       - "9000:8080"
+  ohie-cr:
+    container_name: ohie-cr-demo
+    env_file: .env
+    image: uwitech/ohie-cr
+    ports:
+      - "8081:8080"
+    depends_on:
+      - openempi-db
 
 volumes:
   mongodb-data:
   fr-pgdata:
+  cr-pgdata:
