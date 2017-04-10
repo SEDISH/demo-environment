@@ -13,4 +13,5 @@ cp conf/.env .env
 # Restart with new images
 $COMPOSE pull
 $COMPOSE down
+$COMPOSE rm -v
 $COMPOSE up --build -d
