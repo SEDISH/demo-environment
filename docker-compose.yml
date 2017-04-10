@@ -20,8 +20,6 @@ services:
       - POSTGRES_USER=openempi
       - POSTGRES_DB=openempi
       - POSTGRES_PASSWORD=openempi
-    ports:
-      - 5432:5432
 
   ohie-il:
     depends_on:
@@ -32,6 +30,7 @@ services:
     ports:
       - "8080:8080"
       - "5000:5000"
+      - "5001:5001"
   ohie-il-console:
     container_name: ohie-il-console_demo
     env_file: .env
@@ -48,6 +47,8 @@ services:
     image: uwitech/ohie-fr
     ports:
       - "9000:8080"
+    depends_on:
+      - dhis-db
   ohie-cr:
     container_name: ohie-cr-demo
     env_file: .env
