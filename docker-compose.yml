@@ -31,6 +31,8 @@ services:
       - "8080:8080"
       - "5000:5000"
       - "5001:5001"
+    volumes:
+      - /etc/ssl/crt:/var/openhim/crt
   ohie-il-console:
     container_name: ohie-il-console_demo
     env_file: .env
