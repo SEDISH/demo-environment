@@ -30,6 +30,9 @@ services:
     ports:
       - "8080:8080"
       - "5000:5000"
+      - "5001:5001"
+    volumes:
+      - /etc/ssl/crt:/var/openhim/crt
   ohie-il-console:
     container_name: ohie-il-console_demo
     env_file: .env
@@ -46,6 +49,8 @@ services:
     image: uwitech/ohie-fr
     ports:
       - "9000:8080"
+    depends_on:
+      - dhis-db
   ohie-cr:
     container_name: ohie-cr-demo
     env_file: .env
