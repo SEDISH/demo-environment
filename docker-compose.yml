@@ -20,8 +20,6 @@ services:
       - POSTGRES_USER=openempi
       - POSTGRES_DB=openempi
       - POSTGRES_PASSWORD=openempi
-    ports:
-      - 5432:5432
 
   ohie-il:
     depends_on:
@@ -54,6 +52,8 @@ services:
     image: uwitech/ohie-cr
     ports:
       - "8081:8080"
+    volumes:
+      - cr-orientdata:/data
     depends_on:
       - openempi-db
 
@@ -61,3 +61,4 @@ volumes:
   mongodb-data:
   fr-pgdata:
   cr-pgdata:
+  cr-orientdata:
