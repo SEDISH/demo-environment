@@ -9,6 +9,7 @@ git reset --hard origin/master
 git pull
 
 cp conf/.env .env
+../conf.sh .env
 
 # Restart with new images
 $COMPOSE pull
