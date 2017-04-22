@@ -39,6 +39,9 @@ services:
     image: uwitech/ohie-il-console
     ports:
       - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/ssl/crt:/etc/nginx/certs
   ohie-ilr:
     container_name: ohie-ilr-demo
     env_file: .env
