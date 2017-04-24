@@ -20,6 +20,21 @@ services:
       - POSTGRES_USER=openempi
       - POSTGRES_DB=openempi
       - POSTGRES_PASSWORD=openempi
+  openmrs-postgresql-db:
+    container_name: openmrs-postgresql-db
+    image: uwitech/postgresql
+    volumes:
+      - openmrs-pgdata:/var/lib/postgres/data
+    environment:
+      - POSTGRES_USER=openxds
+      - POSTGRES_DB=openxds
+      - POSTGRES_PASSWORD=openxds
+  openmrs-mysql-db:
+    container_name: openmrs-mysql-db
+    image: uwitech/mysql 
+    env_file: .env
+    volumes:
+      - openmrs-mysqldata:/var/lib/mysql/data
 
   ohie-il:
     depends_on:
@@ -65,8 +80,24 @@ services:
     depends_on:
       - openempi-db
 
+  openshr:
+    container_name: oshr-demo
+    image: uwitech/oshr
+    env_file: .env
+    ports:
+      - "8082:8080"
+    depends_on:
+      - openmrs-mysql-db
+      - openmrs-postgresql-db
+    environment:
+      - POSTGRES_USER=openxds
+      - POSTGRES_PASSWORD=openxds
+
 volumes:
   mongodb-data:
   fr-pgdata:
   cr-pgdata:
   cr-orientdata:
+  openmrs-pgdata:
+  openmrs-mysqldata:
+
