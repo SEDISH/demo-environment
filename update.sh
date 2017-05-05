@@ -15,4 +15,4 @@ cp conf/.env .env
 $COMPOSE pull
 $COMPOSE down
 $COMPOSE rm -v
-$COMPOSE up --build -d
+$COMPOSE up -d
