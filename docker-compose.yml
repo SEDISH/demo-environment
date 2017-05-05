@@ -20,15 +20,22 @@ services:
       - POSTGRES_USER=openempi
       - POSTGRES_DB=openempi
       - POSTGRES_PASSWORD=openempi
-  openmrs-postgresql-db:
-    container_name: openmrs-postgresql-db
+  postgresql-openxds:
     image: uwitech/postgresql
+    container_name: postgresql-openxds
     volumes:
-      - openmrs-pgdata:/var/lib/postgres/data
+      - openxds-pgdata:/var/lib/postgres/data
     environment:
       - POSTGRES_USER=openxds
       - POSTGRES_DB=openxds
       - POSTGRES_PASSWORD=openxds
+  postgresql-log2:
+    image: uwitech/postgresql
+    container_name: postgresql-log2
+    environment:
+      - POSTGRES_USER=logs
+      - POSTGRES_DB=log2
+      - POSTGRES_PASSWORD=xdslogs
   openmrs-mysql-db:
     container_name: openmrs-mysql-db
     image: uwitech/mysql 
@@ -81,6 +88,16 @@ services:
     depends_on:
       - openempi-db
 
+  openxds:
+    image: uwitech/openxds
+    ports:
+      - "8010:8010"
+      - "8020:8020"
+    container_name: openxds-demo
+    depends_on:
+      - postgresql-openxds
+      - postgresql-log2
+
   openshr:
     container_name: oshr-demo
     image: uwitech/oshr
@@ -89,7 +106,7 @@ services:
       - "8082:8080"
     depends_on:
       - openmrs-mysql-db
-      - openmrs-postgresql-db
+      - openxds
     environment:
       - POSTGRES_USER=openxds
       - POSTGRES_PASSWORD=openxds
@@ -99,6 +116,6 @@ volumes:
   fr-pgdata:
   cr-pgdata:
   cr-orientdata:
-  openmrs-pgdata:
+  openxds-pgdata:
   openmrs-mysqldata:
 
