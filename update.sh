@@ -15,4 +15,9 @@ cp conf/.env .env
 $COMPOSE pull
 $COMPOSE down
 $COMPOSE rm -v
+
+# Remove unnamed volumes & images
+docker volume list | grep -v demoenvironment | awk '{print $2}' | xargs docker volume rm
+docker images | grep '<none>' | awk '{print $3}' | xargs docker rmi
+
 $COMPOSE up -d
