@@ -10,12 +10,12 @@ services:
     image: uwitech/postgresql
     env_file: .env
     volumes:
-      - fr-pgdata:/var/lib/postgres/data
+      - fr-pgdata:/var/lib/postgresql/data
   openempi-db:
     container_name: openempi-db_demo
     image: uwitech/postgresql
     volumes:
-      - cr-pgdata:/var/lib/postgres/data
+      - cr-pgdata:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=openempi
       - POSTGRES_DB=openempi
@@ -24,7 +24,7 @@ services:
     image: uwitech/postgresql
     container_name: postgresql-openxds
     volumes:
-      - openxds-pgdata:/var/lib/postgres/data
+      - openxds-pgdata:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=openxds
       - POSTGRES_DB=openxds
