@@ -54,6 +54,7 @@ services:
       - "5000:5000"
       - "5001:5001"
       - "5012:5012"
+      - "8989:8989"
     volumes:
       - /etc/ssl/crt:/var/openhim/crt
   ohie-il-console:
@@ -83,6 +84,8 @@ services:
     image: uwitech/ohie-cr
     ports:
       - "8081:8080"
+      - "3600:3600"
+      - "3700:3700"
     volumes:
       - cr-orientdata:/data
     depends_on:
