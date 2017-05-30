@@ -41,7 +41,7 @@ services:
     image: uwitech/mysql 
     env_file: .env
     volumes:
-      - openmrs-mysqldata:/var/lib/mysql/data
+      - openmrs-mysqldata:/var/lib/mysql
 
   ohie-il:
     depends_on:
