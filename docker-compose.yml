@@ -125,6 +125,7 @@ services:
     depends_on:
       - ohie-fr
       - ohie-cr
+      - openshr
     volumes:
       - /etc/ssl/crt:/etc/nginx/certs
 
