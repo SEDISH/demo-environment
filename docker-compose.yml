@@ -114,6 +114,19 @@ services:
       - POSTGRES_USER=openxds
       - POSTGRES_PASSWORD=openxds
 
+  nginx-proxy:
+    container_name: nginx-proxy-demo
+    image: uwitech/nginx-proxy
+    env_file: .env
+    ports:
+      - "9001:9001"
+      - "9002:9002"
+    depends_on:
+      - ohie-fr
+      - ohie-cr
+    volumes:
+      - /etc/ssl/crt:/etc/nginx/certs
+
 volumes:
   mongodb-data:
   fr-pgdata:
