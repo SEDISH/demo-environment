@@ -2,17 +2,17 @@
 
 ## Backup usage
 
-	./backupRevert.sh pathToDockerCompose dockerProjectName action
+	./backupRevert.sh {pathToDockerCompose} {dockerProjectName} {backupDestination} {action}
 	
 	Example:
 
-	./backupRevert.sh ./demo-environment/docker-compose.yml demoenvironment backup
+	./backupRevert.sh ./demo-environment/docker-compose.yml demoenvironment ~/workspace/backup/ backup
 
 ## Revert usage
 
-	./backupRevert.sh pathToDockerCompose dockerProjectName action dateOfExistingBackup
+	./backupRevert.sh {pathToDockerCompose} {dockerProjectName} {backupLocation} {action} {dateOfExistingBackup}
 	
 	Example:
 
-	./backupRevert.sh ./demo-environment/docker-compose.yml demoenvironment revert 2017-05-30
+	./backupRevert.sh ./demo-environment/docker-compose.yml demoenvironment ~/workspace/backup/ revert 2017-05-30
 
