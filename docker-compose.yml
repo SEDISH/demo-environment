@@ -80,9 +80,6 @@ services:
     container_name: ohie-cr-demo
     env_file: .env
     image: uwitech/ohie-cr
-    ports:
-      - "3600:3600"
-      - "3700:3700"
     volumes:
       - cr-orientdata:/data
     depends_on:
@@ -90,9 +87,6 @@ services:
 
   openxds:
     image: uwitech/openxds
-    ports:
-      - "8010:8010"
-      - "8020:8020"
     container_name: openxds-demo
     depends_on:
       - postgresql-openxds
