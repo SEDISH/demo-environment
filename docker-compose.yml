@@ -55,6 +55,7 @@ services:
       - "5001:5001"
       - "5012:5012"
       - "8989:8989"
+      - "8500:8500"
     volumes:
       - /etc/ssl/crt:/var/openhim/crt
   ohie-il-console:
