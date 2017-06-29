@@ -29,13 +29,6 @@ services:
       - POSTGRES_USER=openxds
       - POSTGRES_DB=openxds
       - POSTGRES_PASSWORD=openxds
-  postgresql-log2:
-    image: uwitech/postgresql
-    container_name: postgresql-log2
-    environment:
-      - POSTGRES_USER=logs
-      - POSTGRES_DB=log2
-      - POSTGRES_PASSWORD=xdslogs
   openmrs-mysql-db:
     container_name: openmrs-mysql-db
     image: uwitech/mysql 
@@ -91,7 +84,6 @@ services:
     container_name: openxds-demo
     depends_on:
       - postgresql-openxds
-      - postgresql-log2
 
   openshr:
     container_name: oshr-demo
