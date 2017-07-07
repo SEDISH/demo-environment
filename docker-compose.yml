@@ -21,14 +21,10 @@ services:
       - POSTGRES_DB=openempi
       - POSTGRES_PASSWORD=openempi
   postgresql-openxds:
-    image: uwitech/postgresql
     container_name: postgresql-openxds
+    image: uwitech/postgresql
     volumes:
       - openxds-pgdata:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_USER=openxds
-      - POSTGRES_DB=openxds
-      - POSTGRES_PASSWORD=openxds
   openmrs-mysql-db:
     container_name: openmrs-mysql-db
     image: uwitech/mysql 
@@ -92,9 +88,6 @@ services:
     depends_on:
       - openmrs-mysql-db
       - openxds
-    environment:
-      - POSTGRES_USER=openxds
-      - POSTGRES_PASSWORD=openxds
 
   nginx-proxy:
     container_name: nginx-proxy-demo
