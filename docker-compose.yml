@@ -88,6 +88,8 @@ services:
     depends_on:
       - openmrs-mysql-db
       - openxds
+    volumes:
+      - shr-orientdata:/root/.OpenMRS/
 
   nginx-proxy:
     container_name: nginx-proxy-demo
@@ -111,4 +113,5 @@ volumes:
   cr-orientdata:
   openxds-pgdata:
   openmrs-mysqldata:
+  shr-orientdata:
 
