@@ -24,7 +24,11 @@ else
       docker cp userRoleMembers.csv $1:/tmp/userRoleMembers.csv
       docker cp userSetting.csv $1:/tmp/userSetting.csv
       docker cp userRole.csv $1:/tmp/userRole.csv
-      docker exec $1 /root/copy.sh HWR && echo "Facilities updated succesfully" || echo "Facilites update failed"
+      docker exec $1 /root/copy.sh HWR && echo "Health worker updated succesfully" || echo "Health worker update failed"
+   elif [[ $2 =~ ^[Xx][Dd][Ss][Ss][Aa][Mm][Pp][Ll][Ee] ]]; then
+      #XDSSample
+      docker cp XDSDocTest.sql $1:/tmp/XDSDocTest.sql
+      docker exec $1 /root/copy.sh XDSSample && echo "XDSSample updated succesfully" || echo "XDSSample update failed"
    else
       echo "Unknown parameter: $2"
    fi
