@@ -60,6 +60,8 @@ services:
     container_name: ohie-ilr-demo
     env_file: .env
     image: uwitech/ohie-ilr
+    volumes:
+      - openinfoman-data:/var/lib/openinfoman/data
   ohie-fr:
     container_name: ohie-fr-demo
     env_file: .env
@@ -116,4 +118,5 @@ volumes:
   openxds-pgdata:
   openmrs-mysqldata:
   shr-orientdata:
+  openinfoman-data:
 
