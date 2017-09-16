@@ -110,6 +110,12 @@ services:
     volumes:
       - /etc/ssl/crt:/etc/nginx/certs
 
+  etl:
+    container_name: ohie-etl-demo
+    image: uwitech/etl
+    env_file: .env
+
+
 volumes:
   mongodb-data:
   fr-pgdata:
