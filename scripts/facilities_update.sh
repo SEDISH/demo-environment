@@ -28,6 +28,9 @@ else
       #XDSSample
       docker cp XDSDocTest.sql $1:/tmp/XDSDocTest.sql
       docker exec $1 /root/copy.sh XDSSample && echo "XDSSample updated succesfully" || echo "XDSSample update failed"
+   elif [[ $2 =~ ^[Ee][Tt][Ll] ]]; then
+      #ETLDatabase
+      sudo docker exec $1 -d dhis2 -U postgres -c "create database etl" && echo "ETL Database created succesfully" || echo "ETL Database was not created"
    else
       echo "Unknown parameter: $2"
    fi
