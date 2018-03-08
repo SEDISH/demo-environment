@@ -20,5 +20,12 @@ else
     docker cp $DHIS_DATA/datasetelement.csv $1:/tmp/datasetelement.csv
     docker cp $DHIS_DATA/datasetsource.csv $1:/tmp/datasetsource.csv
 
+    docker cp $DHIS_DATA/program.csv $1:/tmp/program.csv
+    docker cp $DHIS_DATA/trackedentityattribute.csv $1:/tmp/trackedentityattribute.csv
+    docker cp $DHIS_DATA/program_attributes.csv $1:/tmp/program_attributes.csv
+    docker cp $DHIS_DATA/program_organisationunits.csv $1:/tmp/program_organisationunits.csv
+    docker cp $DHIS_DATA/programstage.csv $1:/tmp/programstage.csv
+    docker cp $DHIS_DATA/programstagedataelement.csv $1:/tmp/programstagedataelement.csv
+
     docker exec $1 /root/copy.sh DHIS && echo "Sets has been added successfully" || echo "Sets loading failed"
 fi
