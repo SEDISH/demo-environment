@@ -40,6 +40,14 @@ else
     docker cp $DHIS_DATA/eventreport_attributedimensions.csv $1:/tmp/eventreport_attributedimensions.csv
     docker cp $DHIS_DATA/eventreport_dataelementdimensions.csv $1:/tmp/eventreport_dataelementdimensions.csv
     docker cp $DHIS_DATA/eventreport_organisationunits.csv $1:/tmp/eventreport_organisationunits.csv
+    # DHIS: adding translations data
+    docker cp $DHIS_DATA/objecttranslation.csv $1:/tmp/objecttranslation.csv
+    docker cp $DHIS_DATA/datasettranslations.csv $1:/tmp/datasettranslations.csv
+    docker cp $DHIS_DATA/dataelementtranslations.csv $1:/tmp/dataelementtranslations.csv
+    docker cp $DHIS_DATA/programtranslations.csv $1:/tmp/programtranslations.csv
+    docker cp $DHIS_DATA/programstagetranslations.csv $1:/tmp/programstagetranslations.csv
+    docker cp $DHIS_DATA/trackedentityattributetranslations.csv $1:/tmp/trackedentityattributetranslations.csv
+    docker cp $DHIS_DATA/categoryoptiontranslations.csv $1:/tmp/categoryoptiontranslations.csv
 
     docker exec $1 /root/copy.sh DHIS && echo "Sets has been added successfully" || echo "Sets loading failed"
 fi
