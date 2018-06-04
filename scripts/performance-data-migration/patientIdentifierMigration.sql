@@ -27,7 +27,7 @@ BEGIN
   call debugMsg(1, 'patient_identifier inserted');
 
   UPDATE tmp_patient_id tmp, patient_identifier per
-    SET tmp.new_id = per.person_id
+    SET tmp.new_id = per.patient_identifier_id
     WHERE tmp.uuid = per.uuid;
 
   call debugMsg(1, 'tmp_patient_id updated');

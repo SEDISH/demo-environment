@@ -61,6 +61,8 @@ BEGIN
   call debugMsg(1, 'patient inserted');
 
   call patientIdentifierMigration();
+  call personNameMigration();
+  call personAddressMigration();
 
 END $$
 DELIMITER ;
