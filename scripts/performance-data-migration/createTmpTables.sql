@@ -8,6 +8,11 @@ BEGIN
     `new_id` int(11),
     `uuid` char(38) NOT NULL);
 
+    CREATE TABLE `tmp_patient_id` (
+    `old_id` int(11) NOT NULL,
+    `new_id` int(11),
+    `uuid` char(38) NOT NULL);
+
     CREATE TABLE `tmp_visit_type` (
     `old_id` int(11) NOT NULL,
     `new_id` int(11),

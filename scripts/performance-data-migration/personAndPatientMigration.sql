@@ -58,7 +58,9 @@ BEGIN
     INNER JOIN tmp_person tmp
     ON p.patient_id = tmp.old_id;
 
-    call debugMsg(1, 'patient inserted');
+  call debugMsg(1, 'patient inserted');
+
+  call patientIdentifierMigration();
 
 END $$
 DELIMITER ;

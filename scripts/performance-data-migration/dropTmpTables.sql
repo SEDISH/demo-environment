@@ -4,6 +4,7 @@ CREATE PROCEDURE dropTmpTables()
 BEGIN
 
   DROP TABLE tmp_person;
+  DROP TABLE tmp_patient_id;
 
   DROP TABLE tmp_visit;
   DROP TABLE tmp_visit_type;
