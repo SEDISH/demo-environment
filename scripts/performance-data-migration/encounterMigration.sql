@@ -72,17 +72,21 @@ BEGIN
                          changed_by, date_changed, visit_id, uuid)
     SELECT tmp_ent.new_id, tmp_p.new_id, in_en.location_id,
            in_en.form_id, in_en.encounter_datetime, in_en.creator, in_en.date_created, in_en.voided,
-           in_en.voided_by, date_voided, void_reason, changed_by, date_changed, tmp_vi.new_id,
+           in_en.voided_by, date_voided, void_reason, changed_by, date_changed, in_en.visit_id,
            in_en.uuid
     FROM input.encounter in_en
     INNER JOIN tmp_person tmp_p
     ON in_en.patient_id = tmp_p.old_id
     INNER JOIN tmp_encounter_type tmp_ent
-    ON in_en.encounter_type = tmp_ent.old_id
-    INNER JOIN tmp_visit tmp_vi
-    ON in_en.visit_id = tmp_vi.old_id;
+    ON in_en.encounter_type = tmp_ent.old_id;
 
- call debugMsg(1, 'encounter inserted');
+ call debugMsg(1, 'encounter inserted (except visit_id)');
+
+ UPDATE encounter mrs, tmp_visit tmp_vi
+    SET mrs.visit_id = tmp_vi.new_id
+    WHERE mrs.visit_id = tmp_vi.old_id;
+
+ call debugMsg(1, 'encounter updated with visit_id');
 
   UPDATE tmp_encounter tmp, encounter mrs
     SET tmp.new_id = mrs.encounter_id

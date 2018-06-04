@@ -19,10 +19,10 @@ BEGIN
       CASE WHEN changed_by IS NULL THEN NULL ELSE admin_id END AS changed_by,
       voided,
       CASE WHEN voided_by IS NULL THEN NULL ELSE admin_id END AS voided_by,
-      date_voided, void_reason, uuid
+      date_voided, void_reason, pi.uuid
     FROM input.patient_identifier AS pi
-    INNER JOIN tmp_person patient
-    ON pi.patient_id = tmp_person.old_id;
+    INNER JOIN tmp_person AS patient
+    ON pi.patient_id = patient.old_id;
 
   call debugMsg(1, 'patient_identifier inserted');
 

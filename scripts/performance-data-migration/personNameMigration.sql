@@ -21,10 +21,10 @@ BEGIN
       CASE WHEN voided_by IS NULL THEN NULL ELSE admin_id END AS voided_by,
       date_voided, void_reason,
       CASE WHEN changed_by IS NULL THEN NULL ELSE admin_id END AS changed_by,
-      date_changed, uuid
+      date_changed, pn.uuid
     FROM input.person_name AS pn
-    INNER JOIN tmp_person person
-    ON pn.person_id = tmp_person.old_id;
+    INNER JOIN tmp_person AS person
+    ON pn.person_id = person.old_id;
 
   call debugMsg(1, 'person_name inserted');
 

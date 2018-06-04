@@ -67,9 +67,9 @@ BEGIN
       v.indication_concept_id, location_id, admin_id, v.date_created, v.changed_by,
       v.date_changed, v.voided, v.voided_by, v.date_voided, v.void_reason, v.uuid
     FROM input.visit v
-    INNER JOIN tmp_person
+    LEFT JOIN tmp_person
     ON v.patient_id = tmp_person.old_id
-    INNER JOIN tmp_visit_type
+    LEFT JOIN tmp_visit_type
     ON v.visit_type_id = tmp_visit_type.old_id;
 
   call debugMsg(0, 'visit inserted');
