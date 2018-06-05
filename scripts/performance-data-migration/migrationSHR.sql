@@ -14,6 +14,9 @@ BEGIN
   call encounterMigration();
   call obsMigration();
 
+  # missing values
+  call ecidGeneration();
+
   # cleaning
   call dropTmpTables();
   SET foreign_key_checks = 1;
