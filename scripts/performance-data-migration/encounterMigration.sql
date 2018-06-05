@@ -1,4 +1,4 @@
-drop procedure if exists encounterMigration;
+DROP PROCEDURE IF EXISTS encounterMigration;
 DELIMITER $$
 CREATE PROCEDURE encounterMigration()
 BEGIN
@@ -29,10 +29,10 @@ BEGIN
 
   call debugMsg(1, 'input updated');
 
-  INSERT INTO encounter_type (name, description, creator, date_created, retired, retired_by,
+  INSERT INTO encounter_type (`name`, description, creator, date_created, retired, retired_by,
                               date_retired, retire_reason, uuid, view_privilege, edit_privilege,
                               changed_by, date_changed)
-    SELECT name, description, creator, date_created, retired, retired_by, date_retired,
+    SELECT `name`, description, creator, date_created, retired, retired_by, date_retired,
       retire_reason, uuid, view_privilege, edit_privilege, changed_by, date_changed
       FROM input.encounter_type in_et
       WHERE NOT EXISTS (
@@ -44,7 +44,7 @@ BEGIN
     SET tmp.new_id = mrs.encounter_type_id
     WHERE tmp.uuid = mrs.uuid;
 
- call debugMsg(1, 'encounter_type done');
+  call debugMsg(1, 'encounter_type done');
 
   # encounter migration
   INSERT INTO tmp_encounter (old_id, uuid)
@@ -69,10 +69,10 @@ BEGIN
 
   INSERT INTO encounter (encounter_type, patient_id, location_id, form_id, encounter_datetime,
                          creator, date_created, voided, voided_by, date_voided, void_reason,
-                         changed_by, date_changed, visit_id, uuid)
+                         changed_by, date_changed, uuid)
     SELECT tmp_ent.new_id, tmp_p.new_id, in_en.location_id,
            in_en.form_id, in_en.encounter_datetime, in_en.creator, in_en.date_created, in_en.voided,
-           in_en.voided_by, date_voided, void_reason, changed_by, date_changed, in_en.visit_id,
+           in_en.voided_by, date_voided, void_reason, changed_by, date_changed,
            in_en.uuid
     FROM input.encounter in_en
     INNER JOIN tmp_person tmp_p
@@ -80,13 +80,7 @@ BEGIN
     INNER JOIN tmp_encounter_type tmp_ent
     ON in_en.encounter_type = tmp_ent.old_id;
 
- call debugMsg(1, 'encounter inserted (except visit_id)');
-
- UPDATE encounter mrs, tmp_visit tmp_vi
-    SET mrs.visit_id = tmp_vi.new_id
-    WHERE mrs.visit_id = tmp_vi.old_id;
-
- call debugMsg(1, 'encounter updated with visit_id');
+  call debugMsg(1, 'encounter inserted (except visit_id)');
 
   UPDATE tmp_encounter tmp, encounter mrs
     SET tmp.new_id = mrs.encounter_id
@@ -94,6 +88,13 @@ BEGIN
 
   call debugMsg(1, 'tmp_encounter updated');
 
+  UPDATE tmp_encounter tmp_e, encounter mrs, input.encounter in_en, tmp_visit tmp_v
+    SET mrs.visit_id = tmp_v.new_id
+    WHERE mrs.encounter_id = tmp_e.new_id
+          AND tmp_e.old_id = in_en.encounter_id
+          AND in_en.visit_id = tmp_v.old_id;
+
+  call debugMsg(1, 'encounter updated with visit_id');
+
 END $$
 DELIMITER ;
-
