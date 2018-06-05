@@ -63,6 +63,7 @@ BEGIN
   call patientIdentifierMigration();
   call personNameMigration();
   call personAddressMigration();
+  call personAttributeMigration();
 
 END $$
 DELIMITER ;
