@@ -10,16 +10,6 @@ BEGIN
 
   call debugMsg(1, 'tmp_obs inserted');
 
-  UPDATE input.obs
-    SET creator = admin_id
-    WHERE creator IS NOT NULL;
-
-  UPDATE input.obs
-    SET voided_by = admin_id
-    WHERE voided_by IS NOT NULL;
-
-  call debugMsg(1, 'input updated');
-
   INSERT INTO obs (person_id, concept_id, encounter_id, order_id, obs_datetime,
                          location_id, obs_group_id, accession_number, value_group_id, value_coded,
                          value_coded_name_id, value_drug, value_datetime, value_numeric,
@@ -30,7 +20,10 @@ BEGIN
       in_obs.location_id, in_obs.obs_group_id, in_obs.accession_number, value_group_id,
       in_obs.value_coded, value_coded_name_id, in_obs.value_drug, in_obs.value_datetime,
       in_obs.value_numeric, in_obs.value_modifier, in_obs.value_text, in_obs.value_complex,
-      in_obs.comments, in_obs.creator, in_obs.date_created, in_obs.voided, in_obs.voided_by,
+      in_obs.comments,
+      CASE WHEN creator IS NULL THEN NULL ELSE admin_id END AS creator,
+      in_obs.date_created, in_obs.voided,
+	  CASE WHEN voided_by IS NULL THEN NULL ELSE admin_id END AS voided_by,
       in_obs.date_voided, in_obs.void_reason, in_obs.uuid, in_obs.previous_version,
       in_obs.form_namespace_and_path
     FROM input.obs in_obs
