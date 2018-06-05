@@ -18,7 +18,7 @@ BEGIN
       CASE WHEN changed_by IS NULL THEN NULL ELSE admin_id END AS changed_by,
       date_changed, retired,
       CASE WHEN retired_by IS NULL THEN NULL ELSE admin_id END AS retired_by,
-      date_retired, retire_reason, edit_privilege, sort_weight, uuid
+      date_retired, retire_reason, edit_privilege, sort_weight, in_pat.uuid
       FROM input.person_attribute_type in_pat
       WHERE NOT EXISTS (
           SELECT mrs.uuid
@@ -46,7 +46,7 @@ BEGIN
       CASE WHEN changed_by IS NULL THEN NULL ELSE admin_id END AS changed_by,
       date_changed, voided,
       CASE WHEN voided_by IS NULL THEN NULL ELSE admin_id END AS voided_by,
-      date_voided, void_reason, uuid
+      date_voided, void_reason, in_pa.uuid
     FROM input.person_attribute in_pa
     INNER JOIN tmp_person
     ON in_pa.person_id = tmp_person.old_id
