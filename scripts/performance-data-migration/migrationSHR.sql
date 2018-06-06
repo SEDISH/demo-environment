@@ -5,21 +5,22 @@ BEGIN
 
   # preparation
   SET SQL_SAFE_UPDATES = 0;
-  SET foreign_key_checks = 0;
   call createTmpTables();
 
   # migration
   call personAndPatientMigration();
   call visitMigration();
   call encounterMigration();
+
+  SET foreign_key_checks = 0;
   call obsMigration();
+  SET foreign_key_checks = 1;
 
   # missing values
   call ecidGeneration();
 
   # cleaning
   call dropTmpTables();
-  SET foreign_key_checks = 1;
   SET SQL_SAFE_UPDATES = 1;
 
 END$$
