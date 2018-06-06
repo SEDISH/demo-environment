@@ -1,12 +1,31 @@
-drop procedure if exists personAndPatientMigration;
+DROP PROCEDURE IF EXISTS personAndPatientMigration;
 DELIMITER $$
 CREATE PROCEDURE personAndPatientMigration()
 BEGIN
   DECLARE admin_id INTEGER DEFAULT 1;
+  DECLARE isante_plus_id_type INTEGER DEFAULT 5;
 
-  INSERT INTO tmp_person (old_id, uuid) SELECT person_id, uuid FROM input.person;
+  INSERT INTO tmp_person (old_id, uuid, isante_plus_id)
+    SELECT pa.person_id, pa.uuid, pi.identifier
+      FROM input.person pa, input.patient_identifier pi
+      WHERE pa.person_id = pi.patient_id
+      AND pi.identifier_type = isante_plus_id_type
+      AND pi.identifier NOT IN (SELECT pi.identifier
+                                  FROM openmrs.patient_identifier pi
+                                  WHERE pi.identifier_type = isante_plus_id_type);
 
   call debugMsg(1, 'tmp_person inserted');
+
+  INSERT INTO tmp_person (old_id, uuid, isante_plus_id)
+    SELECT pa.person_id, pa.uuid, pi.identifier
+      FROM input.person pa, input.patient_identifier pi
+      WHERE pa.person_id = pi.patient_id
+      AND pi.identifier_type = isante_plus_id_type
+      AND pi.identifier IN (SELECT pi.identifier
+                                  FROM openmrs.patient_identifier pi
+                                  WHERE pi.identifier_type = isante_plus_id_type);
+
+  call debugMsg(1, 'tmp_person_to_merge inserted');
 
   INSERT INTO person (gender, birthdate, birthdate_estimated, dead, death_date,
     cause_of_death, creator, date_created, changed_by, date_changed, voided, voided_by,
@@ -29,6 +48,15 @@ BEGIN
 
   call debugMsg(1, 'tmp_person updated');
 
+  UPDATE tmp_person_to_merge tmp,
+    (SELECT per.person_id, pi.identifier
+     FROM person per, patient_identifier pi
+       WHERE per.person_id = pi.patient_id) mrs_person
+    SET tmp.new_id = mrs_person.person_id
+    WHERE tmp.isante_plus_id = mrs_person.identifier;
+
+  call debugMsg(1, 'tmp_person_to_merge updated');
+
   INSERT INTO patient (patient_id, creator, date_created, changed_by, date_changed, voided,
     voided_by, date_voided, void_reason)
     SELECT tmp.new_id,
@@ -49,6 +77,8 @@ BEGIN
   call personNameMigration();
   call personAddressMigration();
   call personAttributeMigration();
+
+  call mergePerson();
 
 END $$
 DELIMITER ;

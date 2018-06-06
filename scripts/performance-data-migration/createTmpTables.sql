@@ -6,6 +6,13 @@ BEGIN
   CREATE TABLE `tmp_person` (
     `old_id` int(11) NOT NULL,
     `new_id` int(11),
+    `isante_plus_id` varchar(50),
+    `uuid` char(38) NOT NULL);
+
+  CREATE TABLE `tmp_person_to_merge` (
+    `old_id` int(11) NOT NULL,
+    `new_id` int(11),
+    `isante_plus_id` varchar(50),
     `uuid` char(38) NOT NULL);
 
   CREATE TABLE `tmp_person_attribute` (
