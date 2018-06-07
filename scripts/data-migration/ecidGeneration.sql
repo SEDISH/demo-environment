@@ -2,8 +2,10 @@ DROP PROCEDURE IF EXISTS ecidGeneration;
 DELIMITER $$
 CREATE PROCEDURE ecidGeneration()
 BEGIN
-  DECLARE ecidIdentifierTypeId INTEGER DEFAULT 9;
-  DECLARE isantePlusIdType INTEGER DEFAULT 5;
+  DECLARE ecidIdentifierTypeId INTEGER DEFAULT (
+    SELECT patient_identifier_type_id FROM patient_identifier_type WHERE uuid = 'f54ed6b9-f5b9-4fd5-a588-8f7561a78401');
+  DECLARE isantePlusIdType INTEGER DEFAULT (
+    SELECT patient_identifier_type_id FROM patient_identifier_type WHERE uuid = '05a29f94-c0ed-11e2-94be-8c13b969e334');
   DECLARE preferred INTEGER DEFAULT 0;
   DECLARE adminId INTEGER DEFAULT 1;
   DECLARE voided INTEGER DEFAULT 0;
