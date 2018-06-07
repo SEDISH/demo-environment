@@ -38,7 +38,7 @@ BEGIN
   INSERT INTO patient_identifier (patient_id, identifier, identifier_type, preferred, location_id,
                                   creator, date_created, date_changed, changed_by, voided,
                                   voided_by, date_voided, void_reason, uuid)
-    SELECT patient.new_id, identifier, identifier_type, preferred, location_id,
+    SELECT patient.new_id, identifier, tmp_idt.new_id, preferred, location_id,
       CASE WHEN creator IS NULL THEN NULL ELSE admin_id END AS creator,
       date_created, date_changed,
       CASE WHEN changed_by IS NULL THEN NULL ELSE admin_id END AS changed_by,
@@ -49,7 +49,7 @@ BEGIN
     INNER JOIN tmp_person AS patient
     ON pi.patient_id = patient.old_id
     INNER JOIN tmp_patient_id_type tmp_idt
-    ON in_pa.patient_identifier_type_id = tmp_idt.old_id;
+    ON pi.identifier_type = tmp_idt.old_id;
 
   call debugMsg(1, 'patient_identifier inserted');
 

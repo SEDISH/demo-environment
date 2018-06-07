@@ -73,8 +73,8 @@ BEGIN
   call mergePerson();
 
   # Add merged person to tmp_person in order to correctly map all obses, visits etc.
-  INSERT INTO tmp_person (new_id, old_id, uuid, code_national)
-    SELECT new_id, old_id, uuid, code_national
+  INSERT INTO tmp_person (new_id, old_id, uuid)
+    SELECT new_id, old_id, uuid
       FROM tmp_person_to_merge;
 
 END $$

@@ -106,7 +106,7 @@ BEGIN
         AND pn.person_id = tmp.new_id
         AND in_pn.person_id = tmp.old_id;
 
-  call debugMsg(1, 'person_attribute updated by merge');
+  call debugMsg(1, 'person_name updated by merge');
 
 END $$
 DELIMITER ;
