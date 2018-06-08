@@ -35,5 +35,7 @@ BEGIN
 
   call debugMsg(1, 'tmp_location updated');
 
+  call locationAttributeMigration();
+
 END $$
 DELIMITER ;
