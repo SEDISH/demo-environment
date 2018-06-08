@@ -1,4 +1,4 @@
-drop procedure if exists visitMigration;
+DROP PROCEDURE IF EXISTS visitMigration;
 DELIMITER $$
 CREATE PROCEDURE visitMigration()
 BEGIN
@@ -30,10 +30,6 @@ BEGIN
 
   call debugMsg(1, 'tmp_visit_type done');
 
-  # Locations between two versions of databases contains the same data and all location_id matches,
-  # so there is no need to insert them from the input database
-  # Locations can be inserted via UI, so they have different uuids.
-
   # visit migration
   INSERT INTO tmp_visit (old_id, uuid)
     SELECT visit_id, uuid
@@ -45,7 +41,7 @@ BEGIN
     indication_concept_id, location_id, creator, date_created, changed_by,
     date_changed, voided, voided_by, date_voided, void_reason, uuid)
     SELECT tmp_person.new_id, tmp_visit_type.new_id, v.date_started, v.date_stopped,
-      v.indication_concept_id, location_id,
+      v.indication_concept_id, tmp_loc.new_id,
       CASE WHEN creator IS NULL THEN NULL ELSE admin_id END AS creator,
       v.date_created,
       CASE WHEN changed_by IS NULL THEN NULL ELSE admin_id END AS changed_by,
@@ -53,10 +49,12 @@ BEGIN
       CASE WHEN voided_by IS NULL THEN NULL ELSE admin_id END AS voided_by,
       v.date_voided, v.void_reason, v.uuid
     FROM input.visit v
-    LEFT JOIN tmp_person
+    INNER JOIN tmp_person
     ON v.patient_id = tmp_person.old_id
-    LEFT JOIN tmp_visit_type
-    ON v.visit_type_id = tmp_visit_type.old_id;
+    INNER JOIN tmp_visit_type
+    ON v.visit_type_id = tmp_visit_type.old_id
+    LEFT JOIN tmp_location tmp_loc  # left join - entity should be inserted even if location id is Null
+    ON v.location_id = tmp_loc.old_id;
 
   call debugMsg(1, 'visit inserted');
 
@@ -68,4 +66,3 @@ BEGIN
 
 END $$
 DELIMITER ;
-

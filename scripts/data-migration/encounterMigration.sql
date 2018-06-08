@@ -52,7 +52,7 @@ BEGIN
   INSERT INTO encounter (encounter_type, patient_id, location_id, form_id, encounter_datetime,
                          creator, date_created, voided, voided_by, date_voided, void_reason,
                          changed_by, date_changed, uuid)
-    SELECT tmp_ent.new_id, tmp_p.new_id, in_en.location_id,
+    SELECT tmp_ent.new_id, tmp_p.new_id, tmp_loc.new_id,
            in_en.form_id, in_en.encounter_datetime,
            CASE WHEN creator IS NULL THEN NULL ELSE admin_id END AS creator,
            in_en.date_created, in_en.voided,
@@ -64,7 +64,9 @@ BEGIN
     INNER JOIN tmp_person tmp_p
     ON in_en.patient_id = tmp_p.old_id
     INNER JOIN tmp_encounter_type tmp_ent
-    ON in_en.encounter_type = tmp_ent.old_id;
+    ON in_en.encounter_type = tmp_ent.old_id
+    LEFT JOIN tmp_location tmp_loc  # left join - entity should be inserted even if location id is Null
+    ON in_en.location_id = tmp_loc.old_id;
 
   call debugMsg(1, 'encounter inserted (except visit_id)');
 

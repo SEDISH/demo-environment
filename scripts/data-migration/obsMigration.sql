@@ -17,7 +17,7 @@ BEGIN
                          voided, voided_by, date_voided, void_reason, uuid, previous_version,
                          form_namespace_and_path)
     SELECT tmp_p.new_id, in_obs.concept_id, tmp_en.new_id, in_obs.order_id, in_obs.obs_datetime,
-      in_obs.location_id, in_obs.obs_group_id, in_obs.accession_number, value_group_id,
+      tmp_loc.new_id, in_obs.obs_group_id, in_obs.accession_number, value_group_id,
       in_obs.value_coded, value_coded_name_id, in_obs.value_drug, in_obs.value_datetime,
       in_obs.value_numeric, in_obs.value_modifier, in_obs.value_text, in_obs.value_complex,
       in_obs.comments,
@@ -30,7 +30,9 @@ BEGIN
     INNER JOIN tmp_person tmp_p
     ON in_obs.person_id = tmp_p.old_id
     INNER JOIN tmp_encounter tmp_en
-    ON in_obs.encounter_id = tmp_en.old_id;
+    ON in_obs.encounter_id = tmp_en.old_id
+    LEFT JOIN tmp_location tmp_loc  # left join - entity should be inserted even if location id is Null
+    ON in_obs.location_id = tmp_loc.old_id;
 
   call debugMsg(1, 'obs inserted');
 
@@ -54,4 +56,3 @@ BEGIN
 
 END $$
 DELIMITER ;
-

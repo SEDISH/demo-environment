@@ -8,6 +8,7 @@ BEGIN
   call createTmpTables();
 
   # migration
+  call locationMigration();
   call personAndPatientMigration();
   call visitMigration();
   call encounterMigration();

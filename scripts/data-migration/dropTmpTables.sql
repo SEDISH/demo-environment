@@ -12,6 +12,7 @@ BEGIN
   DROP TABLE tmp_person_name;
   DROP TABLE tmp_person_address;
 
+  DROP TABLE tmp_location;
   DROP TABLE tmp_visit;
   DROP TABLE tmp_visit_type;
 

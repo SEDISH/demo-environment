@@ -28,7 +28,7 @@ BEGIN
     `old_id` int(11) NOT NULL,
     `new_id` int(11),
     `uuid` char(38) NOT NULL);
-  
+
   CREATE TABLE `tmp_patient_id` (
     `old_id` int(11) NOT NULL,
     `new_id` int(11),
@@ -44,10 +44,15 @@ BEGIN
     `new_id` int(11),
     `uuid` char(38) NOT NULL);
 
-    CREATE TABLE `tmp_visit_type` (
-    `old_id` int(11) NOT NULL,
-    `new_id` int(11),
-    `uuid` char(38) NOT NULL);
+  CREATE TABLE `tmp_location` (
+      `old_id` int(11) NOT NULL,
+      `new_id` int(11),
+      `name` varchar(255) NOT NULL);
+
+  CREATE TABLE `tmp_visit_type` (
+      `old_id` int(11) NOT NULL,
+      `new_id` int(11),
+      `uuid` char(38) NOT NULL);
 
   CREATE TABLE `tmp_visit` (
     `old_id` int(11) NOT NULL,
