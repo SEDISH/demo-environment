@@ -49,6 +49,16 @@ BEGIN
       `new_id` int(11),
       `name` varchar(255) NOT NULL);
 
+  CREATE TABLE `tmp_location_attribute` (
+      `old_id` int(11) NOT NULL,
+      `new_id` int(11),
+      `value_reference` text NOT NULL);
+
+  CREATE TABLE `tmp_location_attribute_type` (
+      `old_id` int(11) NOT NULL,
+      `new_id` int(11),
+      `uuid` char(38) NOT NULL);
+
   CREATE TABLE `tmp_visit_type` (
       `old_id` int(11) NOT NULL,
       `new_id` int(11),

@@ -1,4 +1,4 @@
-drop procedure if exists personAttributeMigration;
+DROP PROCEDURE IF EXISTS personAttributeMigration;
 DELIMITER $$
 CREATE PROCEDURE personAttributeMigration()
 BEGIN
@@ -63,4 +63,3 @@ BEGIN
 
 END $$
 DELIMITER ;
-
