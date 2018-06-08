@@ -36,7 +36,7 @@ function main {
 	then
 		docker-compose -f $composeFilePath -p $projectName stop
 	else
-		backupTime=$(date +%F-%T)
+		backupTime=$(date +%F_%H%M%S)
 	fi
 
 	volumes=($(docker volume ls -f name=$projectName | awk '{if (NR > 1) print $2}'))
