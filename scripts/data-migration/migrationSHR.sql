@@ -12,6 +12,7 @@ BEGIN
   call personAndPatientMigration();
   call visitMigration();
   call encounterMigration();
+  call providerMigration();
 
   SET foreign_key_checks = 0;
   call obsMigration();

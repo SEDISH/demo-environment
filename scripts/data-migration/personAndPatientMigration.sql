@@ -19,10 +19,9 @@ BEGIN
   call debugMsg(1, 'tmp_person_to_merge inserted');
 
   INSERT INTO tmp_person (old_id, uuid)
-    SELECT in_pat.patient_id, in_per.uuid
-      FROM input.patient in_pat, input.person in_per
-      WHERE in_per.person_id = in_pat.patient_id
-      AND in_pat.patient_id NOT IN (SELECT old_id FROM tmp_person_to_merge);
+    SELECT in_per.person_id, in_per.uuid
+      FROM input.person in_per
+      WHERE in_per.person_id NOT IN (SELECT old_id FROM tmp_person_to_merge);
 
   call debugMsg(1, 'tmp_person inserted');
 
