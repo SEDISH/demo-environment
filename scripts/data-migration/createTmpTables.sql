@@ -89,6 +89,16 @@ BEGIN
     `new_id` int(11),
     `uuid` char(38) NOT NULL);
 
+  CREATE TABLE `tmp_provider_attribute` (
+    `old_id` int(11) NOT NULL,
+    `new_id` int(11),
+    `uuid` char(38) NOT NULL);
+
+  CREATE TABLE `tmp_provider_attribute_type` (
+    `old_id` int(11) NOT NULL,
+    `new_id` int(11),
+    `uuid` char(38) NOT NULL);
+
   CREATE TABLE `tmp_obs` (
     `old_id` int(11) NOT NULL,
     `new_id` int(11),

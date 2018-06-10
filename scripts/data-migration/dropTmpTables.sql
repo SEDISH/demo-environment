@@ -23,6 +23,8 @@ BEGIN
   DROP TABLE tmp_privilege;
 
   DROP TABLE tmp_provider;
+  DROP TABLE tmp_provider_attribute;
+  DROP TABLE tmp_provider_attribute_type;
 
   DROP TABLE tmp_obs;
 
