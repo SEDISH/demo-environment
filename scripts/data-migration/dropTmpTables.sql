@@ -25,6 +25,8 @@ BEGIN
   DROP TABLE tmp_provider;
   DROP TABLE tmp_provider_attribute;
   DROP TABLE tmp_provider_attribute_type;
+  DROP TABLE tmp_encounter_role;
+  DROP TABLE tmp_encounter_provider;
 
   DROP TABLE tmp_obs;
 
