@@ -33,5 +33,8 @@ BEGIN
 
   call debugMsg(1, 'tmp_provider updated');
 
+  call encounterProviderMigration();
+  call providerAttributeMigration();
+
 END $$
 DELIMITER ;
