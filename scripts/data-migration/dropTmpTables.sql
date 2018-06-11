@@ -14,13 +14,19 @@ BEGIN
 
   DROP TABLE tmp_location;
   DROP TABLE tmp_location_attribute;
-  DROP TABLE tmp_location_attribute_type; 
+  DROP TABLE tmp_location_attribute_type;
   DROP TABLE tmp_visit;
   DROP TABLE tmp_visit_type;
 
   DROP TABLE tmp_encounter;
   DROP TABLE tmp_encounter_type;
   DROP TABLE tmp_privilege;
+
+  DROP TABLE tmp_provider;
+  DROP TABLE tmp_provider_attribute;
+  DROP TABLE tmp_provider_attribute_type;
+  DROP TABLE tmp_encounter_role;
+  DROP TABLE tmp_encounter_provider;
 
   DROP TABLE tmp_obs;
 
