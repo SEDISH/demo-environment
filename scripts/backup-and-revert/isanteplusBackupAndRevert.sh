@@ -3,7 +3,7 @@ databaseUsername=$1
 databasePassword=$2
 backupLocation=$3
 action=$4
-revertDate=$5
+revertDateOrBucket=$5
 
 set -e
 
@@ -13,8 +13,16 @@ function backupDatabase {
   fileName=$dbName-dump-$backupTime.sql
 
   mysqldump -u$databaseUsername -p$databasePassword --databases $dbName --add-drop-database > $fileName
-	tar rf openmrsBackup-$backupTime.tar $fileName
+  
+  tar rf openmrsBackup-$backupTime.tar $fileName
   rm $fileName
+  
+  fileToUpload="openmrsBackup-$backupTime.tar"
+  
+  export AWS_PROFILE="default"
+  export AWS_CONFIG_FILE=$(pwd)/aws_config
+  
+  aws s3 cp $fileToUpload s3://$revertDateOrBucket/
 }
 
 function revertDatabase {
@@ -40,7 +48,7 @@ function main {
 
   if [ $action == "revert" ]
   then
-    revertDatabase $revertDate
+    revertDatabase $revertDateOrBucket
   fi
 }
 

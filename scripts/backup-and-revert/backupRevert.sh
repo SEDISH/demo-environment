@@ -4,7 +4,7 @@ composeFilePath=$1
 projectName=$2
 backupLocation=$3
 action=$4
-revertDate=$5
+revertDateOrBucket=$5
 
 set -e
 
@@ -61,7 +61,7 @@ function main {
 
 		if [ $action == "revert" ]
 		then
-			revertDatabase $dbFile $volume $backupLocation $revertDate
+			revertDatabase $dbFile $volume $backupLocation $revertDateOrBucket
 		fi
 
 		rm -f $volume.tar
@@ -70,6 +70,13 @@ function main {
 	if [ $action == "revert" ]
 	then
 		docker-compose -f $composeFilePath -p $projectName up -d
+	else
+        fileToUpload="backup-$backupTime.tar"
+
+        export AWS_PROFILE="default"
+        export AWS_CONFIG_FILE=$(pwd)/aws_config
+
+        aws s3 cp $fileToUpload s3://$revertDateOrBucket/
 	fi
 }
 

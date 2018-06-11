@@ -1,16 +1,27 @@
 # Backup and revert script for SEDISH databases
 
+## Before using
+
+	1) Install AWS CLI:
+		sudo apt-get install -y --force-yes python2.7
+		sudo apt-get install -y --force-yes python-pip
+		sudo apt-get install awscli
+
+	2) Update hte aws_config file with your credentials.
+
+
+
 ## Backup usage
 
-	./backupRevert.sh {pathToDockerCompose} {dockerProjectName} {backupDestination} {action}
+	./backupRevert.sh {pathToDockerCompose} {dockerProjectName} {backupDestination} backup {bucket}
 
 	Example:
 
-	./backupRevert.sh ./demo-environment/docker-compose.yml demoenvironment ~/workspace/backup/ backup
+	./backupRevert.sh ./demo-environment/docker-compose.yml demoenvironment ~/workspace/backup/ backup sedish-bucket
 
 ## Revert usage
 
-	./backupRevert.sh {pathToDockerCompose} {dockerProjectName} {backupLocation} {action} {dateOfExistingBackup}
+	./backupRevert.sh {pathToDockerCompose} {dockerProjectName} {backupLocation} revert {dateOfExistingBackup}
 
 	Example:
 
@@ -20,11 +31,11 @@
 
 ## Backup usage
 
-	./isanteplusBackupAndRevert.sh {databaseUsername} {databasePassword} {backupDestination} backup
+	./isanteplusBackupAndRevert.sh {databaseUsername} {databasePassword} {backupDestination} backup {bucket}
 
 	Example:
 
-	./isanteplusBackupAndRevert.sh root s3cr3t ~/backup/ backup
+	./isanteplusBackupAndRevert.sh root s3cr3t ~/backup/ backup sedish-bucket
 
 ## Revert usage
 
