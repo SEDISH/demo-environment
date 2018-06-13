@@ -18,7 +18,7 @@ function backupDatabase {
   rm $fileName
 }
 
-function uploadToAWSBacket{
+function uploadToAWSBacket {
   backupTime=$1
 
   fileToUpload="openmrsBackup-$backupTime.tar"
