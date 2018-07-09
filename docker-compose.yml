@@ -27,7 +27,8 @@ services:
       - openxds-pgdata:/var/lib/postgresql/data
   openmrs-mysql-db:
     container_name: openmrs-mysql-db
-    image: uwitech/mysql 
+    image: uwitech/mysql
+    command: --sql_mode="NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
     env_file: .env
     volumes:
       - openmrs-mysqldata:/var/lib/mysql
@@ -120,7 +121,8 @@ services:
     container_name: ohie-etl-demo
     image: uwitech/etl
     env_file: .env
-
+    depends_on:
+      - openmrs-mysql-db
 
 volumes:
   mongodb-data:
@@ -131,4 +133,3 @@ volumes:
   openmrs-mysqldata:
   shr-orientdata:
   openinfoman-data:
-
