@@ -71,7 +71,6 @@ BEGIN
 
   UPDATE person_attribute pat, input.person_attribute in_pat, tmp_person_to_merge tmp
     SET pat.`value` = in_pat.`value`,
-      pat.person_attribute_type_id = in_pat.person_attribute_type_id,
       pat.creator = CASE WHEN pat.creator  IS NULL THEN NULL ELSE admin_id END,
       pat.date_created = in_pat.date_created,
       pat.date_changed = in_pat.date_changed,
@@ -81,7 +80,8 @@ BEGIN
         AND in_pat.voided = 0
         AND pat.date_created < in_pat.date_created
         AND pat.person_id = tmp.new_id
-        AND in_pat.person_id = tmp.old_id;
+        AND in_pat.person_id = tmp.old_id
+        AND pat.person_attribute_type_id = in_pat.person_attribute_type_id;
 
   call debugMsg(1, 'person_attribute updated by merge');
 

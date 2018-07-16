@@ -5,6 +5,8 @@ BEGIN
 
   # preparation
   SET SQL_SAFE_UPDATES = 0;
+  # cleaning and creating temp tables
+  call dropTmpTables();
   call createTmpTables();
 
   # migration
