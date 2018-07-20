@@ -9,4 +9,4 @@ $COMPOSE rm -v
 
 $COMPOSE up -d
 
-echo "Finished updating the Sedish Demo at: `date`"
+echo "Finished updating the Sedish at: `date`"
