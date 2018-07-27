@@ -7,7 +7,7 @@
 		sudo apt-get install -y --force-yes python-pip
 		sudo apt-get install awscli
 
-	2) Update hte aws_config file with your credentials.
+	2) Update the aws_config file with your credentials.
 
 
 
