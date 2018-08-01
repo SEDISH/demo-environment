@@ -7,7 +7,7 @@ BEGIN
                               FROM input.patient_identifier_type
                               WHERE uuid = '9fb4533d-4fd5-4276-875b-2ab41597f5dd');
 
-  INSERT INTO tmp_person_to_merge (new_id, old_id, uuid, code_national)
+  INSERT IGNORE INTO tmp_person_to_merge (new_id, old_id, uuid, code_national)
     SELECT mrs.person_id, in_per.person_id, in_per.uuid, in_pi.identifier
       FROM input.person in_per, input.patient_identifier in_pi,
         (SELECT per.person_id, pi.identifier
