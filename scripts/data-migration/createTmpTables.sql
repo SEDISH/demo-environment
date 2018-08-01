@@ -11,7 +11,7 @@ BEGIN
   CREATE TABLE `tmp_person_to_merge` (
     `old_id` int(11) NOT NULL,
     `new_id` int(11),
-    `code_national` varchar(50),
+    `code_national` varchar(50) UNIQUE,
     `uuid` char(38) NOT NULL);
 
   CREATE TABLE `tmp_person_attribute` (
