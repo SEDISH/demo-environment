@@ -53,7 +53,7 @@ BEGIN
   INSERT INTO patient (patient_id, creator, date_created, changed_by, date_changed, voided,
     voided_by, date_voided, void_reason)
     SELECT tmp.new_id,
-      CASE WHEN creator IS NULL THEN NULL ELSE @admin_id END AS creator,
+      creator,
       p.date_created,
       CASE WHEN changed_by IS NULL THEN NULL ELSE @admin_id END AS changed_by,
       p.date_changed,

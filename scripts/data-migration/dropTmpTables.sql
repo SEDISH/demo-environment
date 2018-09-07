@@ -30,5 +30,8 @@ BEGIN
 
   DROP TABLE IF EXISTS tmp_obs;
 
+  DROP TABLE IF EXISTS tmp_user;
+  DROP TABLE IF EXISTS tmp_user_to_merge;
+
 END $$
 DELIMITER ;

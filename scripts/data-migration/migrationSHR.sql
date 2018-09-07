@@ -11,7 +11,11 @@ BEGIN
 
   # migration
   call locationMigration();
+  SET foreign_key_checks = 0;
+  call userMigration();
   call personAndPatientMigration();
+  SET foreign_key_checks = 1;
+  call updateCreatorAndPersonId();
   call visitMigration();
   call encounterMigration();
   call providerMigration();

@@ -114,5 +114,18 @@ BEGIN
     `new_id` int(11),
     `uuid` char(38) NOT NULL);
 
+  CREATE TABLE `tmp_user` (
+    `old_id` int(11) NOT NULL,
+    `new_id` int(11),
+    `uuid` char(38) NOT NULL,
+    `is_new` BIT DEFAULT 1,
+    `merged` BIT DEFAULT 0);
+
+  CREATE TABLE `tmp_user_to_merge` (
+    `old_id` int(11) NOT NULL,
+    `new_id` int(11),
+    `uuid` char(38) NOT NULL,
+    `merged` BIT DEFAULT 0);
+
 END $$
 DELIMITER ;
