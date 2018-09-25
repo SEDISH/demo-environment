@@ -3,8 +3,11 @@ DELIMITER $$
 CREATE PROCEDURE personAndPatientMigration()
 BEGIN
   SET @admin_id = 1;
-  SET @code_national_type = (SELECT patient_identifier_type_id
+  SET @code_national_type_input = (SELECT patient_identifier_type_id
                               FROM input.patient_identifier_type
+                              WHERE uuid = '9fb4533d-4fd5-4276-875b-2ab41597f5dd');
+  SET @code_national_type_openmrs = (SELECT patient_identifier_type_id
+                              FROM openmrs.patient_identifier_type
                               WHERE uuid = '9fb4533d-4fd5-4276-875b-2ab41597f5dd');
 
   INSERT IGNORE INTO tmp_person_to_merge (new_id, old_id, uuid, code_national)
@@ -13,9 +16,9 @@ BEGIN
         (SELECT per.person_id, pi.identifier
            FROM person per, patient_identifier pi
            WHERE per.person_id = pi.patient_id
-           AND pi.identifier_type = @code_national_type) as mrs
+           AND pi.identifier_type = @code_national_type_openmrs) as mrs
       WHERE in_per.person_id = in_pi.patient_id
-      AND in_pi.identifier_type = @code_national_type
+      AND in_pi.identifier_type = @code_national_type_input
       AND in_pi.identifier = mrs.identifier;
 
   call debugMsg(1, 'tmp_person_to_merge inserted');
