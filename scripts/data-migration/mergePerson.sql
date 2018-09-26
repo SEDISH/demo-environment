@@ -13,7 +13,7 @@ BEGIN
       per.death_date = in_per.death_date,
       per.deathdate_estimated = in_per.deathdate_estimated,
       per.cause_of_death = in_per.cause_of_death,
-      per.creator = CASE WHEN per.creator  IS NULL THEN NULL ELSE admin_id END,
+      per.creator = CASE WHEN in_per.creator  IS NULL THEN NULL ELSE admin_id END,
       per.date_created = in_per.date_created,
       per.date_changed = in_per.date_changed,
       per.changed_by = CASE WHEN per.changed_by  IS NULL THEN NULL ELSE admin_id END,
@@ -27,7 +27,7 @@ BEGIN
   call debugMsg(1, 'person updated by merge');
 
   UPDATE patient pat, input.patient in_pat, tmp_person_to_merge tmp
-    SET pat.creator = CASE WHEN pat.creator  IS NULL THEN NULL ELSE admin_id END,
+    SET pat.creator = in_pat.creator,
       pat.date_created = in_pat.date_created,
       pat.date_changed = in_pat.date_changed,
       pat.changed_by = CASE WHEN pat.changed_by  IS NULL THEN NULL ELSE admin_id END
@@ -37,7 +37,7 @@ BEGIN
         AND pat.patient_id = tmp.new_id
         AND in_pat.patient_id = tmp.old_id;
 
-  call debugMsg(1, 'person updated by merge');
+  call debugMsg(1, 'patient updated by merge');
 
   UPDATE person_address pad, input.person_address in_pad, tmp_person_to_merge tmp
     SET pad.preferred = in_pad.preferred,
